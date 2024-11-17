@@ -1,31 +1,45 @@
 # image will be published to ghcr.io/<user>/<name>
-name: template
+name: my-ostree
 # description will be included in the image's metadata
 description: This is my personal OS image.
 
 # the base image to build on top of (FROM) and the version tag to use
-base-image: ghcr.io/ublue-os/silverblue-main
-image-version: 40 # latest is also supported if you want new updates ASAP
+base-image: ghcr.io/ublue-os/kinoite-main
+image-version: latest # latest is also supported if you want new updates ASAP
 
 # module configuration, executed in order
 # you can include multiple instances of the same module
 modules:
   - type: files
     files:
-      - source: system
-        destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
+      - usr: /usr
+          # copies config/files/usr into your image's /usr.
+          # put configuration files you want in /etc/ on a booted system 
+          # in /usr/etc/ in the image. read more in files module reference.
 
   - type: rpm-ostree
-    repos:
-      # - https://copr.fedorainfracloud.org/coprs/atim/starship/repo/fedora-%OS_VERSION%/atim-starship-fedora-%OS_VERSION%.repo
+    repos: # - https://copr.fedorainfracloud.org/coprs/atim/starship/repo/fedora-%OS_VERSION%/atim-starship-fedora-%OS_VERSION%.repo
     install:
-      # - micro
-      # - starship
+      - fish
+      - micro
+      - distrobox
+      - syncthing
+      - jetbrains-mono-fonts
+      - lm_sensors
+      - qt5-qtvirtualkeyboard
+
+      - helix 
+      - alacritty
+      - kitty
+      - kitty-fish-integration
+
+      - kate
+      - okular
+      - gwenview
+      - filelight
     remove:
-      # example: removing firefox (in favor of the flatpak)
-      # "firefox" is the main package, "firefox-langpacks" is a dependency
-      # - firefox
-      # - firefox-langpacks # also remove firefox dependency (not required for all packages, this is a special case)
+      - firefox # default firefox removed
+      - firefox-langpacks # langpacks needs to also be removed to prevent dependency problems
 
   - type: default-flatpaks
     notify: true # Send notification after install/uninstall is finished (true/false)
@@ -35,14 +49,73 @@ modules:
       # repo-name: flathub
       # repo-title: "Flathub (system-wide)" # Optional; this sets the remote's user-facing name in graphical frontends like GNOME Software
       install:
-        # - org.mozilla.firefox
-        # - org.gnome.Loupe
-        # - one.ablaze.floorp//lightning # This is an example of flatpak which has multiple branches in selection (flatpak//branch).
-      # Flatpak runtimes are not supported (like org.winehq.Wine//stable-23.08),
-      # only normal flatpak applications are (like Floorp Lightning web browser in this example).
-      # Installing different branches of the same Flatpak is not supported.
+        - io.gitlab.librewolf-community
+        - com.github.Eloston.UngoogledChromium
+        - org.garudalinux.firedragon
+
+        - org.zotero.Zotero
+
+        - org.gajim.Gajim
+        - sm.puri.Chatty
+        - org.kde.neochat
+        - org.kde.tokodon
+        - org.telegram.desktop
+
+        - org.mypaint.MyPaint
+        - org.kde.krita
+        - org.blender.Blender
+        - org.inkscape.Inkscape
+        - io.github.guillaumechereau.Goxel
+        
+        - org.mapeditor.Tiled
+        - org.godotengine.GodotSharp
+        - com.github.libresprite.LibreSprite
+
+        - io.github.nuttyartist.notes
+        - com.github.flxzt.rnote
+        - com.github.xournalpp.xournalpp
+
+        - dev.lapce.lapce
+        - org.kde.yakuake
+        - org.kde.kommit
+        - io.qt.QtCreator
+        - org.kde.okteta
+
+        - app.organicmaps.desktop
+        - org.claws_mail.Claws-Mail
+        - io.mpv.Mpv
+        - org.kde.isoimagewriter
+        - org.zealdocs.Zeal
+        - com.github.phase1geo.minder
+        - org.keepassxc.KeePassXC
+        - org.kde.ktorrent
+        - org.kde.keysmith
+        - org.kde.kig
+        - org.kde.kamoso
+        - org.kde.skanpage
+        - net.scribus.Scribus
+        - org.libreoffice.LibreOffice
+        - org.kde.calligra
+        - org.localsend.localsend_app
+        - io.github.david_swift.Flashcards
+        - com.obsproject.Studio
+        - org.kde.kweather
+
+        - org.gnome.World.PikaBackup
+
+        - org.kde.ktouch
+        - org.kde.kigo
+
+        - org.clementine_player.Clementine
+        - org.atheme.audacious
+        - org.fooyin.fooyin
+
+        - com.usebottles.bottles
+        - org.gnome.Boxes
+        
+        # Flatpak runtimes are not supported (like org.winehq.Wine//stable-23.08)
+        # Installing different branches of the same Flatpak is not supported
       remove:
-      # - org.gnome.eog
+        # - org.gnome.eog
 
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
-
