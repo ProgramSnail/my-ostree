@@ -24,6 +24,7 @@ modules:
       - syncthing
       - jetbrains-mono-fonts
       - lm_sensors
+      - powertop
       - qt5-qtvirtualkeyboard
 
       - helix 
