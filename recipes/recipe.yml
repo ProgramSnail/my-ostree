@@ -26,6 +26,7 @@ modules:
       - lm_sensors
       - powertop
       - qt5-qtvirtualkeyboard
+      - hunspell-ru
 
       - helix 
       - alacritty
