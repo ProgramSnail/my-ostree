@@ -16,7 +16,8 @@ modules:
         destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
 
   - type: rpm-ostree
-    repos: # - https://copr.fedorainfracloud.org/coprs/atim/starship/repo/fedora-%OS_VERSION%/atim-starship-fedora-%OS_VERSION%.repo
+    repos:
+      - https://copr.fedorainfracloud.org/coprs/atim/starship/repo/fedora-%OS_VERSION%/atim-starship-fedora-%OS_VERSION%.repo
     install:
       - fish
       - micro
@@ -42,80 +43,81 @@ modules:
       - firefox-langpacks # langpacks needs to also be removed to prevent dependency problems
 
   - type: default-flatpaks
-    notify: true # Send notification after install/uninstall is finished (true/false)
-    system:
-      # If no repo information is specified, Flathub will be used by default
-      repo-url: https://dl.flathub.org/repo/flathub.flatpakrepo
-      repo-name: flathub
-      # repo-title: "Flathub (system-wide)" # Optional; this sets the remote's user-facing name in graphical frontends like GNOME Software
-      install:
-        - io.gitlab.librewolf-community
-        - com.github.Eloston.UngoogledChromium
-        - org.garudalinux.firedragon
+    configurations:
+      - notify: true # Send notification after install/uninstall is finished (true/false)
+        scope: system
+        # repo-url: https://dl.flathub.org/repo/flathub.flatpakrepo
+        # repo-name: flathub
+        # repo-title: "Flathub (system-wide)" # Optional; this sets the remote's user-facing name in graphical frontends like GNOME Software
+        install:
+          - io.gitlab.librewolf-community
+          - com.github.Eloston.UngoogledChromium
+          - org.garudalinux.firedragon
+  
+          - org.zotero.Zotero
+  
+          - org.gajim.Gajim
+          - sm.puri.Chatty
+          - org.kde.neochat
+          - org.kde.tokodon
+          - org.telegram.desktop
+  
+          - org.mypaint.MyPaint
+          - org.kde.krita
+          - org.blender.Blender
+          - org.inkscape.Inkscape
+          - io.github.guillaumechereau.Goxel
+          
+          - org.mapeditor.Tiled
+          - org.godotengine.GodotSharp
+          - com.github.libresprite.LibreSprite
+  
+          - io.github.nuttyartist.notes
+          - com.github.flxzt.rnote
+          - com.github.xournalpp.xournalpp
+  
+          - dev.lapce.lapce
+          - org.kde.yakuake
+          - org.kde.kommit
+          - io.qt.QtCreator
+          - org.kde.okteta
+  
+          - app.organicmaps.desktop
+          - org.claws_mail.Claws-Mail
+          - io.mpv.Mpv
+          - org.kde.isoimagewriter
+          - org.zealdocs.Zeal
+          - com.github.phase1geo.minder
+          - org.keepassxc.KeePassXC
+          - org.kde.ktorrent
+          - org.kde.keysmith
+          - org.kde.kig
+          - org.kde.kamoso
+          - org.kde.skanpage
+          - net.scribus.Scribus
+          - org.libreoffice.LibreOffice
+          - org.kde.calligra
+          - org.localsend.localsend_app
+          - io.github.david_swift.Flashcards
+          - com.obsproject.Studio
+          - org.kde.kweather
+  
+          - org.gnome.World.PikaBackup
+  
+          - org.kde.ktouch
+          - org.kde.kigo
+  
+          - org.clementine_player.Clementine
+          - org.atheme.audacious
+          - org.fooyin.fooyin
 
-        - org.zotero.Zotero
-
-        - org.gajim.Gajim
-        - sm.puri.Chatty
-        - org.kde.neochat
-        - org.kde.tokodon
-        - org.telegram.desktop
-
-        - org.mypaint.MyPaint
-        - org.kde.krita
-        - org.blender.Blender
-        - org.inkscape.Inkscape
-        - io.github.guillaumechereau.Goxel
-        
-        - org.mapeditor.Tiled
-        - org.godotengine.GodotSharp
-        - com.github.libresprite.LibreSprite
-
-        - io.github.nuttyartist.notes
-        - com.github.flxzt.rnote
-        - com.github.xournalpp.xournalpp
-
-        - dev.lapce.lapce
-        - org.kde.yakuake
-        - org.kde.kommit
-        - io.qt.QtCreator
-        - org.kde.okteta
-
-        - app.organicmaps.desktop
-        - org.claws_mail.Claws-Mail
-        - io.mpv.Mpv
-        - org.kde.isoimagewriter
-        - org.zealdocs.Zeal
-        - com.github.phase1geo.minder
-        - org.keepassxc.KeePassXC
-        - org.kde.ktorrent
-        - org.kde.keysmith
-        - org.kde.kig
-        - org.kde.kamoso
-        - org.kde.skanpage
-        - net.scribus.Scribus
-        - org.libreoffice.LibreOffice
-        - org.kde.calligra
-        - org.localsend.localsend_app
-        - io.github.david_swift.Flashcards
-        - com.obsproject.Studio
-        - org.kde.kweather
-
-        - org.gnome.World.PikaBackup
-
-        - org.kde.ktouch
-        - org.kde.kigo
-
-        - org.clementine_player.Clementine
-        - org.atheme.audacious
-        - org.fooyin.fooyin
-
-        - com.usebottles.bottles
-        - org.gnome.Boxes
-        
-        # Flatpak runtimes are not supported (like org.winehq.Wine//stable-23.08)
-        # Installing different branches of the same Flatpak is not supported
-      remove:
-        # - org.gnome.eog
+          - com.usebottles.bottles
+          - org.gnome.Boxes
+          
+          # Flatpak runtimes are not supported (like org.winehq.Wine//stable-23.08)
+          # Installing different branches of the same Flatpak is not supported
+        remove:
+          # - org.gnome.eog
+      - scope: user # Also add Flathub user repo, but no user packages
 
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
