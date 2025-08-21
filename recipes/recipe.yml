@@ -40,8 +40,11 @@ modules:
       - gwenview
       - filelight
 
-      # quickshell + niri
+      # wms
       - niri
+      - hyprland
+
+      # quckshell utils
       - quickshell-git
       - rsms-inter-fonts
       - fira-code-fonts
