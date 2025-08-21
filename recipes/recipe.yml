@@ -40,6 +40,8 @@ modules:
       - gwenview
       - filelight
 
+      - network-manager-applet
+
       # wms
       - niri
       - hyprland
