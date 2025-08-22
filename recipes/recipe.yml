@@ -42,6 +42,8 @@ modules:
 
       - network-manager-applet
 
+      - ansible
+
       # wms
       - niri
       - hyprland
