@@ -48,7 +48,6 @@ modules:
 
       # wms
       - niri
-      - hyprland
 
       # quckshell utils
       - quickshell-git
