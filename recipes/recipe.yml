@@ -43,6 +43,8 @@ modules:
       - network-manager-applet
 
       - ansible
+      - podman-compose
+      - podman-docker
 
       # wms
       - niri
